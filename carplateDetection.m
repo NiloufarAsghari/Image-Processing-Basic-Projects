@@ -1,0 +1,18 @@
+img = imread('8.jpg');
+subplot(2,3,1),imshow(img);
+title('Original Image');
+img2 = rgb2gray(img);
+imgX = edge(img2,'sobel','horizontal');
+imgY = edge(img2,'sobel','vertical');
+img3 = imgX|imgY;
+subplot(2,3,2),imshow(img3);
+se = strel('line',5,90);
+img3 = imclose(img3,se);
+se = strel('line',5,0);
+img3 = imclose(img3,se);
+subplot(2,3,3),imshow(img3);
+img4 = imfill(img3,'holes');
+subplot(2,3,4),imshow(img4);
+img5 = immultiply(img2,img4);
+subplot(2,3,5),imshow(img5);
+title('Detected Number Plate');
